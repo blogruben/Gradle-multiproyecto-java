@@ -1,0 +1,25 @@
+
+Closure cl = { task -> println "I'm $task.project.name" }
+
+task('SaludoWater').doLast(cl)
+//C:\Users\Ruben\water>gradle -q SaludoWater
+//I'm water
+//BUILD SUCCESSFUL in 1s
+
+project(':bluewhale') {
+    task('SaludoBlueWater').doLast(cl)
+}
+//C:\Users\Ruben\water>gradle -q SaludoBlueWater
+//I'm bluewhale
+//BUILD SUCCESSFUL in 1s
+
+task('SaludarTodos').doLast(cl)
+project(':bluewhale') {
+    task('SaludarTodos').doLast(cl)
+}
+//C:\Users\Ruben Ruiz\Desktop\water>gradle SaludarTodos  
+//> Task :SaludarTodos
+//I'm water
+//> Task :bluewhale:SaludarTodos
+//I'm bluewhale
+//BUILD SUCCESSFUL in 1s

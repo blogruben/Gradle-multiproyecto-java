@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6 
+
+jar {
+	manifest {
+		attributes 'Main-Class' : 'org.ejemplo.App'
+	}
+}
+
+repositories {
+    maven {
+		url="http://produccion.portal.es:8080/artifactory"
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+}
+
+application {
+    mainClassName = 'org.infra.smnot.ucm.App'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '5.6'
+}
+
