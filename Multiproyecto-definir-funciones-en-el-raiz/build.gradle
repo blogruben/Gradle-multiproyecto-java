@@ -1,0 +1,66 @@
+
+Closure cl = { task -> println "Soy $task.project.name" }
+
+//definimos una funcion en el proyecto principal
+task('SaludoMain').doLast(cl)
+//C:\Users\Ruben>gradle -q SaludoMain
+//Soy Proyecto_principal
+
+//definimos una funcion en subproject1
+project(':subproject1') {
+    task('SaludoSub1').doLast(cl)
+}
+//C:\Users\Ruben>gradle -q SaludoSub1
+//Soy subproject1
+
+//definimos una funcion en el proyecto principal y el subproject1
+task('Saludar').doLast(cl)
+project(':subproject1') {
+    task('Saludar').doLast(cl)
+}
+//C:\Users\Ruben>gradle Saludar
+//> Task :Saludar
+//Soy Proyecto_principal
+//> Task :subproject1:Saludar
+//Soy subproject1
+//BUILD SUCCESSFUL in 1s
+
+
+//anadir funcion en todos los subprojectos
+allprojects {
+    task holaTodos {
+        doLast { task ->
+            println "yo soy $task.project.name"
+        }
+    }
+        task hello {
+        doLast { task ->
+            println "Me llamo $task.project.name"
+        }
+    }
+}
+//C:\Users\Ruben Ruiz\Desktop\Gradle\Gradle_5.6_Multi_Project>gradle -q holaTodos 
+//yo soy Proyecto_principal
+//yo soy subproject1
+//yo soy subproject2
+
+
+subprojects {
+    hello {
+        doLast {
+            println "- soy un subporyecto del principal"
+        }
+    }
+}
+project(':subproject2').hello {
+    doLast {
+        println "- y el subproyecto2 hace mas cosas."
+    }
+}
+//C:\Users\Ruben>gradle -q hello
+//Me llamo Proyecto_principal
+//Me llamo subproject1
+//- soy un subporyecto del principal
+//Me llamo subproject2
+//- soy un subporyecto del principal
+//- y el subproyecto2 hace mas cosas.

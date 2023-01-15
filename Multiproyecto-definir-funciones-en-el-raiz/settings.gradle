@@ -1,0 +1,2 @@
+rootProject.name = 'Proyecto_principal'
+include 'subproject1','subproject2'
