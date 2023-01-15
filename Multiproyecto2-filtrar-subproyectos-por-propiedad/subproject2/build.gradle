@@ -1,0 +1,12 @@
+ext.arctic = true
+hello.doLast {
+    println "- Soy el proyecto dos."
+}
+
+
+task descripcion {
+    doLast {
+        println 'Soy la subtarea 2'
+    }
+}
+

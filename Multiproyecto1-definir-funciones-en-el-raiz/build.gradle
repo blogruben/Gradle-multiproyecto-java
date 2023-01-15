@@ -52,15 +52,37 @@ subprojects {
         }
     }
 }
+//anadir a todos los subproyectos excepto al el tro
+configure(subprojects.findAll {it.name != 'otro'}) {
+    hello {
+        doLast {
+            println "- soy $it.name y soy importante"
+        }
+    }
+}
+
 project(':subproject2').hello {
     doLast {
         println "- y el subproyecto2 hace mas cosas."
     }
 }
-//C:\Users\Ruben>gradle -q hello
+//ejecuta los subproyecto de forma alfanumerica
+//C:\Users\Ruben>gradle hello                            
+//
+//> Task :hello
 //Me llamo Proyecto_principal
+//
+//> Task :otro:hello
+//Me llamo otro
+//- soy un subporyecto del principal
+//
+//> Task :subproject1:hello
 //Me llamo subproject1
 //- soy un subporyecto del principal
+//- soy hello y soy importante
+//
+//> Task :subproject2:hello
 //Me llamo subproject2
 //- soy un subporyecto del principal
+//- soy hello y soy importante
 //- y el subproyecto2 hace mas cosas.

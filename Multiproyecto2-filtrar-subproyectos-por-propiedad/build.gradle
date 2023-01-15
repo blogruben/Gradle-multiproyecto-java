@@ -1,0 +1,41 @@
+allprojects {
+    task hello {
+        doLast { task ->
+            println "Soy $task.project.name"
+        }
+    }
+}
+subprojects {
+    hello {
+        doLast {}
+    }
+    //filtramos los proyecto por propiedad
+    afterEvaluate { Project project ->
+        if (project.arctic) {
+            hello.configure {
+                doLast {
+                    println '- formo parte del principal.'
+                }
+            }
+        }
+    }
+}
+//C:\Users\Ruben>gradle -q hello
+//Soy Proyecto_principal
+//Soy otro
+//Soy subproject1
+//- Soy el proyecto uno.
+//- formo parte del principal.
+//Soy subproject2
+//- Soy el proyecto dos.
+//- formo parte del principal.
+
+//Ejecuto la tarea descripcion de los subproyectos
+//C:\Users\Ruben\>gradle -q descripcion      
+//Soy la subtarea 1
+//Soy la subtarea 2
+
+//o solo de un subproyecto
+//C:\Users\Ruben>gradle -q :subproject1:descripcion                                                                                                                       
+//Soy la subtarea 1
+

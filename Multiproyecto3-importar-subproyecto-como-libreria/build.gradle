@@ -1,0 +1,20 @@
+
+subprojects {
+    apply plugin: 'java'
+    //group = 'org.example'
+    version = '1.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        testImplementation "junit:junit:4.12"
+    }
+}
+
+project(':subproject2') {
+    dependencies {
+        implementation project(':subproject1')
+    }
+}
+
+//subproject2 importa como libreria subproject2
