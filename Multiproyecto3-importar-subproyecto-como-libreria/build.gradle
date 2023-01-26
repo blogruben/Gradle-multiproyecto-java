@@ -2,29 +2,42 @@ apply plugin: 'java'//para "gradle build"
 apply plugin: 'application'//para para "gradle run"
 mainClassName = 'org.example.App'//necesario para "gradle run"
 
+repositories {
+    mavenCentral()
+}
 
 subprojects {
     apply plugin: 'java'
 
     sourceCompatibility = 1.6
     targetCompatibility = 1.6 
+    
+    repositories {
+        mavenCentral()
+    }
 
     dependencies {
         testImplementation 'junit:junit:4.12'
-        implementation 'org.slf4j:slf4j-api:1.7.25'
+        implementation 'org.slf4j:slf4j-api:2.0.6'
+    }
 
+}
+
+project(':subproject2') {
+    dependencies {
+        implementation project(':subproject1')
     }
 }
 
-    dependencies {
-        implementation project(':subproject1')
-        implementation project(':subproject2')
-    }
+dependencies {
+    implementation project(':subproject1')
+    implementation project(':subproject2')
+}
 
 
 jar {
     manifest {
-        attributes "Main-Class": 'org.example.subproject1.App'
+        attributes "Main-Class": 'org.example.App'
     }
     //creamos un fat jar con todas las libs
     from {

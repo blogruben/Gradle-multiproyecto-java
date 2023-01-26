@@ -1,7 +1,10 @@
 # Ignorar compilados de gradle "build" y los de VSCode en "bin"
-build
-bin
+*/build/*
+*/bin/*
 # Ignore gradle cache
-.gradle
+*/.gradle/*
 # la configuracion del gradle wrapper
-gradle
+*/gradle/*
+#Compilador
+*.class
+*.jar
