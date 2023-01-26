@@ -1,20 +1,33 @@
+apply plugin: 'java'//para "gradle build"
+apply plugin: 'application'//para para "gradle run"
+mainClassName = 'org.example.App'//necesario para "gradle run"
+
 
 subprojects {
     apply plugin: 'java'
-    //group = 'org.example'
-    version = '1.0'
-    repositories {
-        mavenCentral()
-    }
+
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6 
+
     dependencies {
-        testImplementation "junit:junit:4.12"
+        testImplementation 'junit:junit:4.12'
+        implementation 'org.slf4j:slf4j-api:1.7.25'
+
     }
 }
 
-project(':subproject2') {
     dependencies {
         implementation project(':subproject1')
+        implementation project(':subproject2')
+    }
+
+
+jar {
+    manifest {
+        attributes "Main-Class": 'org.example.subproject1.App'
+    }
+    //creamos un fat jar con todas las libs
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
-
-//subproject2 importa como libreria subproject2
