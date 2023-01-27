@@ -1,21 +1,24 @@
 apply plugin: 'java'//para "gradle build"
 apply plugin: 'application'//para para "gradle run"
-mainClassName = 'org.example.App'//necesario para "gradle run"
+def clasePrincipal = org.example.App'
+mainClassName = "$clasePrincipal" //clase principal para "gradlew -q run"
 
-repositories {
-    mavenCentral()
+//TODOS LOS PROYECTOS
+allprojects {
+    repositories {
+        maven {
+	        url="http://ic01.pro.portal.ss:8081/artifactory/plugins-release"
+        }
+    }
 }
 
+//TODOS LOS SUB-PROYECTOS
 subprojects {
     apply plugin: 'java'
 
     sourceCompatibility = 1.6
     targetCompatibility = 1.6 
-    
-    repositories {
-        mavenCentral()
-    }
-
+   
     dependencies {
         testImplementation 'junit:junit:4.12'
         implementation 'org.slf4j:slf4j-api:2.0.6'
@@ -23,6 +26,7 @@ subprojects {
 
 }
 
+//UN SUB-PROYECTO
 project(':subproject2') {
     dependencies {
         implementation project(':subproject1')
@@ -37,9 +41,9 @@ dependencies {
 
 jar {
     manifest {
-        attributes "Main-Class": 'org.example.App'
+        attributes "Main-Class": "$clasePrincipal"
     }
-    //creamos un fat jar con todas las libs
+    //creamos un fat-jar con todas las libretias y subproyectos
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
