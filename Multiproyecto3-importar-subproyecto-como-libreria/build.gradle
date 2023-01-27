@@ -1,6 +1,6 @@
 apply plugin: 'java'//para "gradle build"
 apply plugin: 'application'//para para "gradle run"
-def clasePrincipal = org.example.App'
+def clasePrincipal = 'org.example.App'
 mainClassName = "$clasePrincipal" //clase principal para "gradlew -q run"
 
 //TODOS LOS PROYECTOS
