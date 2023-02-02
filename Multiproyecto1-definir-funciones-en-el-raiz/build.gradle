@@ -86,3 +86,7 @@ project(':subproject2').hello {
 //- soy un subporyecto del principal
 //- soy hello y soy importante
 //- y el subproyecto2 hace mas cosas.
+
+task wrapVersion(type: Wrapper) {
+   gradleVersion = '5.6'
+}

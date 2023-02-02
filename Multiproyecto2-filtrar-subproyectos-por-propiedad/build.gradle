@@ -39,3 +39,6 @@ subprojects {
 //C:\Users\Ruben>gradle -q :subproject1:descripcion                                                                                                                       
 //Soy la subtarea 1
 
+task wrapVersion(type: Wrapper) {
+   gradleVersion = '5.6'
+}

@@ -48,3 +48,7 @@ jar {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+
+task wrapVersion(type: Wrapper) {
+   gradleVersion = '5.6'
+}
